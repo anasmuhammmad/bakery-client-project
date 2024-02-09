@@ -1,22 +1,16 @@
-from django import forms
+from django.shortcuts import render
 from django.http import HttpResponse
+from rest_framework import generics
+from .models import Address
+from api.serializers import AddressSerializer
 
-# class AddressForm(forms.Form):
-#     recipient_name = forms.CharField(max_length=100)
-#     recipient_address = forms.CharField(max_length=255)
-#     landmark = forms.CharField(max_length=100)
-#     recipient_phone = forms.CharField(max_length=15)
-#     ADDRESS_TYPE_CHOICES = [
-#         ('home', 'Home'),
-#         ('office', 'Office'),
-#         ('other', 'Other'),
-#     ]
-#     address_type = forms.ChoiceField(choices=ADDRESS_TYPE_CHOICES)
+class AddressListCreateView(generics.ListCreateAPIView):
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer
 
-# def address_list(request):
-#     # Your view logic here
-#     return HttpResponse("Address list view")
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
-# def address_create(request):
-#     # Your view logic here
-#     return HttpResponse("Address create view")
+class AddressRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Address.objects.all()
+    serializer_class = AddressSerializer

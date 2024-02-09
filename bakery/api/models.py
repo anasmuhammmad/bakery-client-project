@@ -67,14 +67,21 @@ class Review(models.Model):
     
 
 
+
 class Address(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    street = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
-    state = models.CharField(max_length=255)
-    phone = models.CharField(max_length=10)
-    zip_code = models.CharField(max_length=10)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='api_addresses')
+    recipient_name = models.CharField(max_length=255)
+    recipient_address = models.CharField(max_length=512)
+    landmark = models.CharField(max_length=255)
+    recipient_phone = models.CharField(max_length=15)
+    
+    ADDRESS_TYPE_CHOICES = [
+        ('home', 'Home'),
+        ('office', 'Office'),
+        ('other', 'Other'),
+    ]
+    address_type = models.CharField(max_length=10, choices=ADDRESS_TYPE_CHOICES)
 
     def __str__(self):
-        return f"{self.street}, {self.city}, {self.state} {self.zip_code}"
+        return f"{self.recipient_name}'s {self.address_type} address"
 

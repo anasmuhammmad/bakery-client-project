@@ -46,6 +46,6 @@ class OrderSerializer(serializers.ModelSerializer):
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ['id', 'street_address', 'city', 'state', 'zip_code','phone','country']
+        fields = ['id', 'recipient_name', 'recipient_address', 'landmark', 'recipient_phone', 'address_type']
 
         

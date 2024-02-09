@@ -5,9 +5,10 @@ from . import views
 
 
 urlpatterns = [
-    #  path('', views.address_list, name='address_list'),
-    # path('create/', views.address_create, name='address_create'),
+    path('list/', views.AddressListCreateView.as_view(), name='address_list'),
+    path('create/', views.AddressListCreateView.as_view(), name='address_create'),
 
 
 ]
+
 
